@@ -2,6 +2,7 @@
 
   <PropertyGroup Label="Identity">
     <ProductName>REMuns.CoreUtils</ProductName>
+    <RootNamespace>REMuns.CoreUtils</RootNamespace>
     <ProductVersion>1.0</ProductVersion>
   </PropertyGroup>
 
