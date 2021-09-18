@@ -1,0 +1,17 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup Label="Identity">
+    <ProductName>REMuns.CoreUtils</ProductName>
+    <ProductVersion>1.0</ProductVersion>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Targets">
+    <TargetFramework>netstandard2.0</TargetFramework>
+  </PropertyGroup>
+
+  <PropertyGroup Label="Language">
+    <LangVersion>9.0</LangVersion>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+</Project>
