@@ -94,7 +94,8 @@ namespace REMuns.CoreUtils.Test.Extensions
         public void TestRotate_Negative_TooManyPlaces()
         {
             Assert.IsTrue(Collection.Rotate(-4000).SequenceEqual(
-                Collection.Skip(Count - (4000 % Count)).Concat(Collection.Take(Count - (4000 % Count)))));
+                Collection.Skip(Count - (4000 % Count))
+                    .Concat(Collection.Take(Count - (4000 % Count)))));
         }
     }
 }
