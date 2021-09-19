@@ -13,6 +13,9 @@ namespace REMuns.CoreUtils.Test.Extensions
     {
         private static Random Random { get; } = new();
 
+        private static int Count { get; } = Random.Next(2000, 3000);
+        private static IEnumerable<int> Collection { get; } = Enumerable.Range(0, Count);
+
         /// <summary>
         /// Tests that the rotation method works on zero-length collections without any exceptions.
         /// </summary>
@@ -34,8 +37,7 @@ namespace REMuns.CoreUtils.Test.Extensions
         [TestMethod, TestCategory(nameof(Enumerables.Rotate))]
         public void TestNoRotation()
         {
-            var arr = new[] { 1, 2, 3, };
-            Assert.IsTrue(arr.Rotate(0).SequenceEqual(arr));
+            Assert.IsTrue(Collection.Rotate(0).SequenceEqual(Collection));
         }
 
         /// <summary>
@@ -47,7 +49,9 @@ namespace REMuns.CoreUtils.Test.Extensions
         public void TestRotate_TooManyPlaces()
         {
             var arr = new int[] { Random.Next(), Random.Next(), Random.Next() };
-            Assert.IsTrue(arr.Rotate(10).SequenceEqual(arr.Skip(1).Append(arr[0])));
+            Assert.IsTrue(
+                Collection.Rotate(4000).SequenceEqual(
+                    Collection.Skip(4000 % Count).Concat(Collection.Take(4000 % Count))));
         }
 
         /// <summary>
@@ -57,8 +61,7 @@ namespace REMuns.CoreUtils.Test.Extensions
         [TestMethod, TestCategory(nameof(Enumerables.Rotate))]
         public void TestRotate_WholeCollection()
         {
-            var arr = new[] { 1, 2, 3 };
-            Assert.IsTrue(arr.Rotate(3).SequenceEqual(arr));
+            Assert.IsTrue(Collection.Rotate(Count).SequenceEqual(Collection));
         }
 
         /// <summary>
@@ -67,8 +70,8 @@ namespace REMuns.CoreUtils.Test.Extensions
         [TestMethod, TestCategory(nameof(Enumerables.Rotate))]
         public void TestRotate_NonEmpty()
         {
-            var arr = new int[] { Random.Next(), Random.Next(), Random.Next(), Random.Next() };
-            Assert.IsTrue(arr.Rotate(2).SequenceEqual(arr.Skip(2).Concat(arr.Take(2))));
+            Assert.IsTrue(Collection.Rotate(1000).SequenceEqual(
+                Collection.Skip(1000).Concat(Collection.Take(1000))));
         }
     }
 }
