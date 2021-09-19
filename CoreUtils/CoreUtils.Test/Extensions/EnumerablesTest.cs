@@ -28,6 +28,7 @@ namespace REMuns.CoreUtils.Test.Extensions
             var arr = Array.Empty<int>();
             Assert.IsTrue(arr.Rotate(0).SequenceEqual(arr));
             Assert.IsTrue(arr.Rotate(4).SequenceEqual(arr));
+            Assert.IsTrue(arr.Rotate(-2).SequenceEqual(arr));
         }
 
         /// <summary>
@@ -72,6 +73,28 @@ namespace REMuns.CoreUtils.Test.Extensions
         {
             Assert.IsTrue(Collection.Rotate(1000).SequenceEqual(
                 Collection.Skip(1000).Concat(Collection.Take(1000))));
+        }
+
+        /// <summary>
+        /// Tests the rotation method with negative arguments on general non-empty collections.
+        /// </summary>
+        [TestMethod, TestCategory(nameof(Enumerables.Rotate))]
+        public void TestRotate_Negative()
+        {
+            Assert.IsTrue(Collection.Rotate(-1000).SequenceEqual(
+                Collection.Skip(Count - 1000).Concat(Collection.Take(Count - 1000))));
+        }
+
+        /// <summary>
+        /// Tests the rotation method with negative arguments on general non-empty collections
+        /// when rotating more elements than the length of the collection, in order to ensure the
+        /// rotation is handled properly despite the overflow.
+        /// </summary>
+        [TestMethod, TestCategory(nameof(Enumerables.Rotate))]
+        public void TestRotate_Negative_TooManyPlaces()
+        {
+            Assert.IsTrue(Collection.Rotate(-4000).SequenceEqual(
+                Collection.Skip(Count - (4000 % Count)).Concat(Collection.Take(Count - (4000 % Count)))));
         }
     }
 }

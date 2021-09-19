@@ -34,82 +34,104 @@ namespace REMuns.CoreUtils.Extensions
         {
             // Error checking
             Throw.IfArgumentNull(source, nameof(source));
-            Throw.IfArgumentNegative(places, nameof(places));
 
             // Filter out empty collections by breaking
             if (!source.Any()) yield break;
 
-            // Filter out empty rotations by simply returning the original collection
             if (places == 0)
             {
+                // Filter out empty rotations by simply returning the original collection
                 foreach (var item in source) yield return item;
-                yield break;
             }
-
-            /*
-             * Shift the collection by the specified number of places
-             * 
-             * If there are too many places, we can use this to get the count of the collection
-             * and use that in turn to get a correct rotation
-             */
-            var enumerator = source.GetEnumerator();
-            int count = 0;
-            bool tooManyPlaces = false;
-            while (count < places)
+            else if (places < 0)
             {
-                if (enumerator.MoveNext())
+                // Will need the count of the collection to interpret the negative rotation
+                var count = source.Count();
+
+                // Rewrite the negative rotation as a positive rotation
+                places = places % count + count;
+
+                if (places == 0) 
                 {
-                    // We counted another element of the collection
-                    count++;
+                    // Avoid having to iterate twice through the collection
+                    foreach (var item in source) yield return item;
                 }
                 else
                 {
-                    /*
-                     * The end of the collection was reached before reaching the specified
-                     * number of places
-                     * 
-                     * We counted the collection, so we can use the count to properly rotate
-                     * the collection
-                     */
-                    tooManyPlaces = true;
-                    break;
+                    // Yield the items after skipping places elements
+                    foreach (var item in source.Skip(places)) yield return item;
+
+                    // Yield the items initially skipped
+                    foreach (var item in source.Take(places)) yield return item;
                 }
             }
-
-            if (tooManyPlaces)
+            else // Handle positive case
             {
-                // Redefine places to get the actual shift
-                places %= count;
-
-                // Yield the items after skipping places elements
-                foreach (var item in source.Skip(places)) yield return item;
-
-                // Yield the items initially skipped
-                foreach (var item in source.Take(places)) yield return item;
-            }
-            else
-            {
-                // Filter out the case where we have rotated by exactly the number of elements
-                // in the collection to avoid re-iterating through it an extra time
-                if (enumerator.MoveNext())
+                /*
+                 * Shift the collection by the specified number of places
+                 * 
+                 * If there are too many places, we can use this to get the count of the collection
+                 * and use that in turn to get a correct rotation
+                 */
+                var enumerator = source.GetEnumerator();
+                int count = 0;
+                bool tooManyPlaces = false;
+                while (count < places)
                 {
-                    yield return enumerator.Current;
-
-                    // Yield the remaining elements of the collection
-                    while (enumerator.MoveNext())
+                    if (enumerator.MoveNext())
                     {
-                        yield return enumerator.Current;
+                        // We counted another element of the collection
+                        count++;
                     }
+                    else
+                    {
+                        /*
+                         * The end of the collection was reached before reaching the specified
+                         * number of places
+                         * 
+                         * We counted the collection, so we can use the count to properly rotate
+                         * the collection
+                         */
+                        tooManyPlaces = true;
+                        break;
+                    }
+                }
 
-                    // Yield the elements initially skipped
+                if (tooManyPlaces)
+                {
+                    // Redefine places to get the actual shift
+                    places %= count;
+
+                    // Yield the items after skipping places elements
+                    foreach (var item in source.Skip(places)) yield return item;
+
+                    // Yield the items initially skipped
                     foreach (var item in source.Take(places)) yield return item;
                 }
                 else
                 {
-                    // Just return the original collection, since we have rotated the collection
-                    // exactly once
-                    enumerator.Reset();
-                    while (enumerator.MoveNext()) yield return enumerator.Current;
+                    // Filter out the case where we have rotated by exactly the number of elements
+                    // in the collection to avoid having to count to the length of the collection
+                    // while iterating
+                    if (enumerator.MoveNext())
+                    {
+                        yield return enumerator.Current;
+
+                        // Yield the remaining elements of the collection
+                        while (enumerator.MoveNext())
+                        {
+                            yield return enumerator.Current;
+                        }
+
+                        // Yield the elements initially skipped
+                        foreach (var item in source.Take(places)) yield return item;
+                    }
+                    else
+                    {
+                        // Just return the original collection, since we have rotated the collection
+                        // exactly once
+                        foreach (var item in source) yield return item;
+                    }
                 }
             }
         }
