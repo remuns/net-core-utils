@@ -14,7 +14,7 @@ namespace REMuns.CoreUtils.Test.Extensions
         private static Random Random { get; } = new();
 
         /// <summary>
-        /// Tests that the rotation method works on zero length collections without any exceptions.
+        /// Tests that the rotation method works on zero-length collections without any exceptions.
         /// </summary>
         /// <remarks>
         /// This is an edge case test.
@@ -28,15 +28,37 @@ namespace REMuns.CoreUtils.Test.Extensions
         }
 
         /// <summary>
+        /// Tests that the rotation method works on a non-zero-length collection when performing
+        /// a rotation of 0 places (in which case the original collection should be returned).
+        /// </summary>
+        [TestMethod, TestCategory(nameof(Enumerables.Rotate))]
+        public void TestNoRotation()
+        {
+            var arr = new[] { 1, 2, 3, };
+            Assert.IsTrue(arr.Rotate(0).SequenceEqual(arr));
+        }
+
+        /// <summary>
         /// Tests the rotation method on general non-empty collections when rotating more elements
-        /// than the length of the collection, in order to ensure the original collection is
-        /// returned in this case.
+        /// than the length of the collection, in order to ensure the rotation is handled properly
+        /// despite the overflow.
         /// </summary>
         [TestMethod, TestCategory(nameof(Enumerables.Rotate))]
         public void TestRotate_TooManyPlaces()
         {
             var arr = new int[] { Random.Next(), Random.Next(), Random.Next() };
-            Assert.IsTrue(arr.Rotate(10).SequenceEqual(arr));
+            Assert.IsTrue(arr.Rotate(10).SequenceEqual(arr.Skip(1).Append(arr[0])));
+        }
+
+        /// <summary>
+        /// Tests that the rotation method returns the initial collection when rotating by the
+        /// exact count of the collection.
+        /// </summary>
+        [TestMethod, TestCategory(nameof(Enumerables.Rotate))]
+        public void TestRotate_WholeCollection()
+        {
+            var arr = new[] { 1, 2, 3 };
+            Assert.IsTrue(arr.Rotate(3).SequenceEqual(arr));
         }
 
         /// <summary>
