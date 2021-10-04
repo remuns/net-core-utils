@@ -72,6 +72,216 @@ namespace REMuns.CoreUtils.Control
     }
 
     /// <summary>
+    /// Applicable extensions for the <see cref="Option{TObject}"/> struct.
+    /// </summary>
+    /// <remarks>
+    /// The methods in this class are named "Invoke" to match C# function naming conventions.
+    /// </remarks>
+    public static class ApplicableOptionExtensions
+    {
+        /// <summary>
+        /// Invokes the function wrapped in the current instance if it wraps a value.
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="opt"></param>
+        /// <returns></returns>
+        public static Option<TResult> Invoke<TResult>(this Option<Func<TResult>> opt)
+            => opt.Select(f => f());
+
+        /// <summary>
+        /// Invokes the function wrapped in the current instance if it wraps a value.
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="opt"></param>
+        /// <returns></returns>
+        public static Option<TResult> Invoke<T, TResult>(
+            this Option<Func<T, TResult>> opt, T arg)
+            => opt.Select(f => f(arg));
+
+        /// <summary>
+        /// Invokes the function wrapped in the current instance if it wraps a value.
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="opt"></param>
+        /// <returns></returns>
+        public static Option<TResult> Invoke<T1, T2, TResult>(
+            this Option<Func<T1, T2, TResult>> opt, T1 arg1, T2 arg2)
+            => opt.Select(f => f(arg1, arg2));
+
+        /// <summary>
+        /// Invokes the function wrapped in the current instance if it wraps a value.
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="opt"></param>
+        /// <returns></returns>
+        public static Option<TResult> Invoke<T1, T2, T3, TResult>(
+            this Option<Func<T1, T2, T3, TResult>> opt, T1 arg1, T2 arg2, T3 arg3)
+            => opt.Select(f => f(arg1, arg2, arg3));
+
+        /// <summary>
+        /// Invokes the function wrapped in the current instance if it wraps a value.
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="opt"></param>
+        /// <returns></returns>
+        public static Option<TResult> Invoke<T1, T2, T3, T4, TResult>(
+            this Option<Func<T1, T2, T3, T4, TResult>> opt, T1 arg1, T2 arg2, T3 arg3, T4 arg4)
+            => opt.Select(f => f(arg1, arg2, arg3, arg4));
+
+        /// <summary>
+        /// Invokes the function wrapped in the current instance if it wraps a value.
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="opt"></param>
+        /// <returns></returns>
+        public static Option<TResult> Invoke<T1, T2, T3, T4, T5, TResult>(
+            this Option<Func<T1, T2, T3, T4, T5, TResult>> opt,
+            T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5)
+            => opt.Select(f => f(arg1, arg2, arg3, arg4, arg5));
+
+        /// <summary>
+        /// Invokes the function wrapped in the current instance if it wraps a value.
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="opt"></param>
+        /// <returns></returns>
+        public static Option<TResult> Invoke<T1, T2, T3, T4, T5, T6, TResult>(
+            this Option<Func<T1, T2, T3, T4, T5, T6, TResult>> opt,
+            T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6)
+            => opt.Select(f => f(arg1, arg2, arg3, arg4, arg5, arg6));
+
+        /// <summary>
+        /// Invokes the function wrapped in the current instance if it wraps a value.
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="opt"></param>
+        /// <returns></returns>
+        public static Option<TResult> Invoke<T1, T2, T3, T4, T5, T6, T7, TResult>(
+            this Option<Func<T1, T2, T3, T4, T5, T6, T7, TResult>> opt,
+            T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7)
+            => opt.Select(f => f(arg1, arg2, arg3, arg4, arg5, arg6, arg7));
+
+        /// <summary>
+        /// Invokes the function wrapped in the current instance if it wraps a value.
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="opt"></param>
+        /// <returns></returns>
+        public static Option<TResult> Invoke<T1, T2, T3, T4, T5, T6, T7, T8, TResult>(
+            this Option<Func<T1, T2, T3, T4, T5, T6, T7, T8, TResult>> opt,
+            T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8)
+            => opt.Select(f => f(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8));
+
+        /// <summary>
+        /// Invokes the function wrapped in the current instance if it wraps a value.
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="opt"></param>
+        /// <returns></returns>
+        public static Option<TResult> Invoke<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult>(
+            this Option<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, TResult>> opt,
+            T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8, T9 arg9)
+            => opt.Select(f => f(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9));
+
+        /// <summary>
+        /// Invokes the function wrapped in the current instance if it wraps a value.
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="opt"></param>
+        /// <returns></returns>
+        public static Option<TResult> Invoke<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult>(
+            this Option<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, TResult>> opt,
+            T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8,
+            T9 arg9, T10 arg10)
+            => opt.Select(f =>
+                f(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10));
+
+        /// <summary>
+        /// Invokes the function wrapped in the current instance if it wraps a value.
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="opt"></param>
+        /// <returns></returns>
+        public static Option<TResult> Invoke<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult>(
+            this Option<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, TResult>> opt,
+            T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8,
+            T9 arg9, T10 arg10, T11 arg11)
+            => opt.Select(f =>
+                f(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11));
+
+        /// <summary>
+        /// Invokes the function wrapped in the current instance if it wraps a value.
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="opt"></param>
+        /// <returns></returns>
+        public static Option<TResult> Invoke<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult>(
+            this Option<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, TResult>> opt,
+            T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8,
+            T9 arg9, T10 arg10, T11 arg11, T12 arg12)
+            => opt.Select(f =>
+                f(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12));
+
+        /// <summary>
+        /// Invokes the function wrapped in the current instance if it wraps a value.
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="opt"></param>
+        /// <returns></returns>
+        public static Option<TResult> Invoke<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult>(
+            this Option<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, TResult>> opt,
+            T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8,
+            T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13)
+            => opt.Select(f =>
+                f(arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13));
+
+        /// <summary>
+        /// Invokes the function wrapped in the current instance if it wraps a value.
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="opt"></param>
+        /// <returns></returns>
+        public static Option<TResult> Invoke<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult>(
+            this Option<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, TResult>> opt,
+            T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8,
+            T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14)
+            => opt.Select(f =>
+                f(
+                    arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8,
+                    arg9, arg10, arg11, arg12, arg13, arg14));
+
+        /// <summary>
+        /// Invokes the function wrapped in the current instance if it wraps a value.
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="opt"></param>
+        /// <returns></returns>
+        public static Option<TResult> Invoke<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult>(
+            this Option<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, TResult>> opt,
+            T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8,
+            T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15)
+            => opt.Select(f =>
+                f(
+                    arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8,
+                    arg9, arg10, arg11, arg12, arg13, arg14, arg15));
+
+        /// <summary>
+        /// Invokes the function wrapped in the current instance if it wraps a value.
+        /// </summary>
+        /// <typeparam name="TResult"></typeparam>
+        /// <param name="opt"></param>
+        /// <returns></returns>
+        public static Option<TResult> Invoke<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult>(
+            this Option<Func<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, T11, T12, T13, T14, T15, T16, TResult>> opt,
+            T1 arg1, T2 arg2, T3 arg3, T4 arg4, T5 arg5, T6 arg6, T7 arg7, T8 arg8,
+            T9 arg9, T10 arg10, T11 arg11, T12 arg12, T13 arg13, T14 arg14, T15 arg15, T16 arg16)
+            => opt.Select(f =>
+                f(
+                    arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8,
+                    arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16));
+    }
+
+    /// <summary>
     /// General-purpose extensions and static functionality relating to the
     /// <see cref="Option{TObject}"/> struct.
     /// </summary>
